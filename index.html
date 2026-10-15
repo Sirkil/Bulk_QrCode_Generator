@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f4">
+  <meta name="description" content="Generate a batch of named QR code PNGs from pasted data and save them to a folder you choose.">
+  <title>Bulk QR Code Generator</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>QR / Batch</span></div>
+      <span class="topbar-tag"><span class="status-dot"></span> Browser workspace</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">BULK GENERATION TOOL <span class="eyebrow-line"></span> 01 / 03</p>
+          <h1 id="page-title">Many QR codes.<br><em>One simple flow.</em></h1>
+          <p class="hero-description">Paste one record per line, choose your image size and destination, then watch each PNG get created.</p>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-grid"><span class="art-corner tl"></span><span class="art-corner tr"></span><span class="art-corner bl"></span><span class="art-pixel p1"></span><span class="art-pixel p2"></span><span class="art-pixel p3"></span><span class="art-pixel p4"></span><span class="art-pixel p5"></span><span class="art-pixel p6"></span><span class="art-pixel p7"></span></div>
+          <span class="art-label">PNG <b>·</b> YOUR DATA</span>
+        </div>
+      </section>
+
+      <div class="workspace">
+        <div class="main-column">
+          <section class="panel data-panel" aria-labelledby="data-title">
+            <div class="section-heading"><div><span class="step">01</span><h2 id="data-title">Paste your data</h2></div><span id="record-count" class="count-pill">0 records</span></div>
+            <p class="section-note">One QR code per line. The full line is encoded; text before the first <code>|</code> names the file.</p>
+            <label class="sr-only" for="data-input">QR code data, one record per line</label>
+            <textarea id="data-input" spellcheck="false" placeholder="Pramod Mistry|US|GD/ASMD&#10;Another Person|US|EXAMPLE"></textarea>
+            <div class="input-footer"><span>Example: <strong>Pramod Mistry|US|GD/ASMD</strong> → <strong>Pramod Mistry.png</strong></span><button id="sample-button" class="text-button" type="button">Use sample</button></div>
+          </section>
+
+          <section class="panel activity-panel" aria-labelledby="activity-title">
+            <div class="section-heading"><div><span class="step">03</span><h2 id="activity-title">Activity log</h2></div><button id="clear-log-button" class="text-button" type="button">Clear log</button></div>
+            <div class="progress-track" aria-hidden="true"><div id="progress-fill" class="progress-fill"></div></div>
+            <div class="progress-label"><span id="progress-text">Waiting to start</span><span id="progress-count">0 / 0</span></div>
+            <ol id="activity-log" class="activity-log" aria-live="polite" aria-relevant="additions">
+              <li class="empty-log"><span class="empty-icon" aria-hidden="true">↗</span><span>Your generation activity will appear here, one QR code at a time.</span></li>
+            </ol>
+          </section>
+        </div>
+
+        <aside class="settings-column">
+          <section class="panel settings-panel" aria-labelledby="settings-title">
+            <div class="section-heading"><div><span class="step">02</span><h2 id="settings-title">Output settings</h2></div></div>
+            <div class="field-group"><label for="folder-name">New folder name</label><input id="folder-name" type="text" value="QR Codes" maxlength="120" autocomplete="off"><p class="field-help">We’ll create this folder inside your chosen location.</p></div>
+            <div class="field-group"><span class="field-label">PNG dimensions</span><div class="dimension-fields"><label for="width-input">Width <input id="width-input" type="number" step="1" value="200" inputmode="numeric"></label><span class="dimension-times" aria-hidden="true">×</span><label for="height-input">Height <input id="height-input" type="number" step="1" value="200" inputmode="numeric"></label></div><p class="field-help">Set any positive width and height in pixels. The QR stays square inside the image.</p></div>
+            <div class="field-group destination"><span class="field-label">Save location</span><button id="choose-folder-button" class="folder-button" type="button"><span class="folder-icon" aria-hidden="true">▣</span><span><strong>Choose a location</strong><small id="folder-description">Select the parent folder</small></span><span class="folder-arrow" aria-hidden="true">↗</span></button><p id="location-help" class="field-help">Your browser will ask which folder to use.</p></div>
+            <div class="settings-divider"></div>
+            <button id="generate-button" class="primary-button" type="button"><span>Generate QR codes</span><span aria-hidden="true">↗</span></button>
+            <button id="cancel-button" class="cancel-button" type="button" hidden>Cancel generation</button>
+            <p id="form-error" class="form-error" role="alert" hidden></p>
+          </section>
+          <div class="note-card"><span class="note-icon" aria-hidden="true">✳</span><p><strong>How names work</strong><br>For <code>Pramod Mistry|US|GD/ASMD</code>, the image is saved as <code>Pramod Mistry.png</code>. Repeated names get a numbered suffix.</p></div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-footer"><span>QR / BATCH</span><span>Powered by <a href="https://goqr.me/api/doc/create-qr-code/" target="_blank" rel="noopener noreferrer">QRServer API</a></span></footer>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
